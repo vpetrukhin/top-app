@@ -1,0 +1,21 @@
+.sort {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 40px;
+}
+.sort span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.sort svg {
+  display: none;
+}
+.sort .active {
+  font-weight: bold;
+  color: var(--primary);
+}
+.sort .active svg {
+  display: inline-block;
+}
