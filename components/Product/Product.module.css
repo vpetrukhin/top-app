@@ -91,3 +91,18 @@
 .reviewButton {
   margin-left: 20px;
 }
+.characteristic {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  padding-right: 60px;
+  font-size: 16px;
+  line-height: 32px;
+}
+.characteristicName {
+  margin-right: 10px;
+  font-weight: bold;
+}
+.characteristicDots {
+  border-bottom: 1px dashed var(--gray-light);
+}
+

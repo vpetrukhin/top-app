@@ -7,7 +7,7 @@ import { Card } from '..';
 import { Rating } from '../Rating/Rating';
 import { Tag } from '../Tag/Tag';
 import { Button } from '../Button/Button';
-import { priceRu } from '../../helpers/helpers';
+import { declOfNum, priceRu } from '../../helpers/helpers';
 import { Divider } from '../Divider/Divider';
 
 export const Product = ({
@@ -30,10 +30,18 @@ export const Product = ({
       <div className={styles.tags}>{product.categories.map(c => <Tag key={c} color="ghost">{c}</Tag>)}</div>
       <div className={styles.priceTitle}>цена</div>
       <div className={styles.creditTitle}>в кредит</div>
-      <div className={styles.ratingTitle}>{product.reviewCount} отзывов</div>
+      <div className={styles.ratingTitle}>{product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</div>
       <Divider className={styles.hr} />
       <div className={styles.description}>{product.description}</div>
-      <div className={styles.features}>фичи</div>
+      <div className={styles.features}>
+        {product.characteristics.map(c => (
+          <div className={styles.characteristic} key={c.name}>
+            <span className={styles.characteristicName}>{c.name}</span>
+            <span className={styles.characteristicDots}></span>
+            <span className={styles.characteristicValue}>{c.value}</span>
+          </div>
+        ))}
+      </div>
       <div className={styles.advBlock}>
         {product.advantages && (<div className={styles.advantages}>
           <div className={styles.advTitle}>Преимущества</div>
