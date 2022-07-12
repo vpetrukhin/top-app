@@ -10,6 +10,21 @@
   outline-color: var(--primary);
 }
 
-.input::placeholder {
+.textarea::placeholder {
   color: var(--grey);
+}
+
+.textareaWrapper {
+  position: relative;
+}
+
+.error {
+  border: 1px solid var(--red);
+}
+
+.errorMessage {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  color: var(--red);
 }

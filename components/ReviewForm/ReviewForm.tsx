@@ -16,7 +16,7 @@ export const ReviewForm = ({
   className,
   ...props
 }: ReviewFormProps) => {
-    const { register, control, handleSubmit } = useForm<IReviewForm>();
+    const { register, control, handleSubmit, formState: {errors} } = useForm<IReviewForm>();
 
     const onSubmit = (data: IReviewForm) => {
         console.log(data);
@@ -30,13 +30,15 @@ export const ReviewForm = ({
           {...props}
       >
         <Input
-            {...register('name')}
+            {...register('name', {required: {value: true, message: 'Заполните имя'}})}
             placeholder="Имя"
+            error={errors.name}
         />
         <Input
-            {...register('title')}
+            {...register('title', {required: {value: true, message: 'Заполните заголовок'}})}
             placeholder="Заголовок отзыва"
             className={styles.title}
+            error={errors.title}
         />
         <div className={styles.rating}>
             <span>Оценка:</span>
@@ -49,7 +51,7 @@ export const ReviewForm = ({
                 )}
             />
         </div>
-        <TextArea {...register('description')} placeholder="Текст отзыва" className={styles.description} />
+        <TextArea error={errors.description} {...register('description', {required: {value: true, message: 'Заполните описание'}})} placeholder="Текст отзыва" className={styles.description} />
         <div className={styles.submit}>
           <Button appearence="primary">Отправить</Button>
           <span>* Перед публикацией отзыв пройдет предварительную модерацию и проверку</span>
