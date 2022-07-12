@@ -84,10 +84,10 @@ export const Product = ({
               color='blue'
           >
               {product.reviews.map(review => (
-                  <>
-                      <Review review={review} key={review._id}/>
+                  <div key={review._id}>
+                      <Review review={review} />
                       <Divider />
-                  </>
+                  </div>
               ))}
               <ReviewForm productId={product._id} />
           </Card>

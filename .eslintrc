@@ -14,7 +14,8 @@
 			{
 				"allowSingleExtends": true
 			}
-		]
+		],
+		"react/display-name": "off"
 	},
 	"extends": [
 		"eslint:recommended",
