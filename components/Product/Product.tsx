@@ -3,7 +3,7 @@ import { productProps } from "./Product.props";
 
 import cn from "classnames";
 import styles from "./Product.module.css";
-import {Card, Review} from '..';
+import {Card, Review, ReviewForm} from '..';
 import { Rating } from '../Rating/Rating';
 import { Tag } from '../Tag/Tag';
 import { Button } from '../Button/Button';
@@ -84,8 +84,12 @@ export const Product = ({
               color='blue'
           >
               {product.reviews.map(review => (
-                  <Review review={review} key={review._id} />
+                  <>
+                      <Review review={review} key={review._id}/>
+                      <Divider />
+                  </>
               ))}
+              <ReviewForm productId={product._id} />
           </Card>
       </>
   );

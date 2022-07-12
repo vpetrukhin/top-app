@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["courses-top.ru"],
+    domains: ["courses-top.ru"]
   },
   webpack(config, options) {
     config.module.rules.push({
@@ -10,13 +10,13 @@ module.exports = {
         prettier: false,
         svgo: true,
         svgoConfig: {
-          plugins: [{ removeViewBox: false }],
+          plugins: [{ removeViewBox: false }]
         },
-        titleProp: true,
+        titleProp: true
       },
-      test: /\.svg$/,
+      test: /\.svg$/
     });
 
     return config;
-  },
+  }
 };
