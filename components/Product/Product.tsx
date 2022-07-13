@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import { productProps } from "./Product.props";
 
 import cn from "classnames";
@@ -18,6 +18,15 @@ export const Product = ({
   ...props
 }: productProps) => {
     const [isReviewOpen, setIsReviewOpen] = useState<boolean>(false);
+    const reviewRef = useRef<HTMLDivElement>(null);
+
+    const scrollToReview = () => {
+      setIsReviewOpen(true);
+      reviewRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+      })
+    }
 
   return (
       <>
@@ -42,7 +51,7 @@ export const Product = ({
               <div className={styles.tags}>{product.categories.map(c => <Tag key={c} color="ghost">{c}</Tag>)}</div>
               <div className={styles.priceTitle}>цена</div>
               <div className={styles.creditTitle}>в кредит</div>
-              <div className={styles.ratingTitle}>{product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</div>
+              <div className={styles.ratingTitle}><a href="#ref" onClick={() => scrollToReview()}>{product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</a></div>
               <Divider className={styles.hr} />
               <div className={styles.description}>{product.description}</div>
               <div className={styles.features}>
@@ -82,6 +91,7 @@ export const Product = ({
                   [styles.closed]: !isReviewOpen,
               })}
               color='blue'
+              ref={reviewRef}
           >
               {product.reviews.map(review => (
                   <div key={review._id}>
