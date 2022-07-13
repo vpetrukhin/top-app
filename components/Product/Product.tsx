@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {ForwardedRef, forwardRef, useRef, useState} from "react";
 import { productProps } from "./Product.props";
 
 import cn from "classnames";
@@ -10,13 +10,15 @@ import { Button } from '../Button/Button';
 import { declOfNum, priceRu } from '../../helpers/helpers';
 import { Divider } from '../Divider/Divider';
 import Image from 'next/image';
+import {motion} from "framer-motion";
 
 
-export const Product = ({
+// eslint-disable-next-line react/display-name
+export const Product = motion(forwardRef(({
   product,
   className,
   ...props
-}: productProps) => {
+}: productProps, ref: ForwardedRef<HTMLDivElement>) => {
     const [isReviewOpen, setIsReviewOpen] = useState<boolean>(false);
     const reviewRef = useRef<HTMLDivElement>(null);
 
@@ -29,7 +31,7 @@ export const Product = ({
     }
 
   return (
-      <>
+      <div className={className} {...props} ref={ref}>
           <Card className={styles.product}>
               <div className={styles.logo}>
                   <Image
@@ -101,6 +103,6 @@ export const Product = ({
               ))}
               <ReviewForm productId={product._id} />
           </Card>
-      </>
+      </div>
   );
-};
+}));
