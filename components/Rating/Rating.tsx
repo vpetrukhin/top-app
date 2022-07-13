@@ -10,6 +10,7 @@ export const Rating = forwardRef(({
   isEditable = false,
   rating,
   setRating,
+  error,
   ...props
 }: RatingProps, ref: ForwardedRef<HTMLDivElement>) => {
   const [ratingArray, setRatingArray] = useState<JSX.Element[]>(
@@ -27,7 +28,7 @@ export const Rating = forwardRef(({
           key={i}
           className={cn(styles.star, {
             [styles.filled]: i < currentRating,
-            [styles.editable]: isEditable,
+            [styles.editable]: isEditable
           })}
           onMouseEnter={() => hoverHandler(i + 1)}
           onMouseLeave={() => hoverHandler(rating)}
@@ -67,7 +68,9 @@ export const Rating = forwardRef(({
   };
 
   return (
-    <div {...props} ref={ref}>
+    <div className={cn(styles.wrapper, {
+      [styles.error]: error
+    })} {...props} ref={ref}>
       {ratingArray.map((r, i) => (
         <span key={i}>{r}</span>
       ))}

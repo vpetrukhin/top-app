@@ -1,11 +1,13 @@
 .textarea {
   padding: 7px 12px;
+  width: 100%;
 
   color: var(--black);
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
   border: none;
+  font-family: var(--font-family);
   font-size: 16px;
   outline-color: var(--primary);
 }
@@ -24,7 +26,7 @@
 
 .errorMessage {
   position: absolute;
-  top: 48px;
+  top: 55px;
   left: 0;
   color: var(--red);
 }

@@ -27,11 +27,22 @@
     align-items: center;
 }
 
-.success {
+.panel {
     margin-top: 20px;
     padding: 20px;
-    background-color: var(--green-light);
     position: relative;
+}
+
+.success {
+    background-color: var(--green-light);
+}
+
+.error {
+    background-color: var(--red-light);
+}
+
+.error svg path {
+    stroke: var(--red-light);
 }
 
 .successTitle {

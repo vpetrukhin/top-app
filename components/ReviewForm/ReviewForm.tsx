@@ -7,7 +7,10 @@ import {Rating} from "../Rating/Rating";
 import {TextArea} from "../TextArea/TextArea";
 import {Button} from "../Button/Button";
 import {useForm, Controller} from "react-hook-form";
-import {IReviewForm} from "./IReviewForm.interface";
+import { ICreateDemoResponce, IReviewForm} from "./IReviewForm.interface";
+import axios from "axios";
+import {API} from "../../helpers/api";
+import {useState} from "react";
 
 
 export const ReviewForm = ({
@@ -16,10 +19,23 @@ export const ReviewForm = ({
   className,
   ...props
 }: ReviewFormProps) => {
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const [error, setError] = useState<string>();
+
     const { register, control, handleSubmit, formState: {errors} } = useForm<IReviewForm>();
 
-    const onSubmit = (data: IReviewForm) => {
-        console.log(data);
+    const onSubmit = async (formData: IReviewForm) => {
+        try {
+            const { data } = await axios.post<ICreateDemoResponce>(API.review.createDemo, { ...formData, productId });
+            if (data.message) {
+                setIsSuccess(true);
+            } else {
+                setError('Что-то пошло не так');
+            }
+        } catch (e) {
+            setError('Что-то пошло не так. Пожалуйста, обновите страницу');
+        }
+
     }
 
     // @ts-ignore
@@ -46,8 +62,9 @@ export const ReviewForm = ({
             <Controller
                 control={control}
                 name='rating'
+                rules={{ required: true }}
                 render={({ field }) => (
-                    <Rating isEditable={true} rating={field.value} ref={field.ref} setRating={field.onChange} />
+                    <Rating isEditable={true} rating={field.value} ref={field.ref} setRating={field.onChange} error={errors.rating} />
                 )}
             />
         </div>
@@ -57,10 +74,18 @@ export const ReviewForm = ({
           <span>* Перед публикацией отзыв пройдет предварительную модерацию и проверку</span>
         </div>
       </div>
-      <div className={styles.success}>
-        <span className={styles.successTitle}>Ваш отзыв отправлен</span>
-        <Close className={styles.close} />
-      </div>
+        {isSuccess && (
+            <div className={cn(styles.panel, styles.success)}>
+                <span className={styles.successTitle}>Ваш отзыв отправлен</span>
+                <Close className={styles.close} onClick={() => setIsSuccess(false)} />
+            </div>
+        )}
+        {error && (
+            <div className={cn(styles.panel, styles.error)}>
+                {error}
+                <Close className={styles.close} onClick={() => setError('')} />
+            </div>
+        )}
     </form>
   );
 };
