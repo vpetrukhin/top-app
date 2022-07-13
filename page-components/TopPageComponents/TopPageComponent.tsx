@@ -5,7 +5,7 @@ import FeutureIcon from "./feutureicon.svg";
 
 import styles from "./TopPageComponent.module.css";
 import { TopLevelCategory } from "../../interfaces/page.interface";
-import React, { useReducer } from "react";
+import React, {useEffect, useReducer} from "react";
 import { SortEnum } from "../../components/Sort/Sort.props";
 import { sortReduser } from "./sort.reducer";
 
@@ -22,6 +22,10 @@ export const TopPageComponent = ({
   const setSort = (sort: SortEnum) => {
     dispatchSort({ type: sort });
   };
+
+  useEffect(() => {
+      dispatchSort({ type: 'reset', initialState: products })
+  }, [products]);
 
   return (
     <>
