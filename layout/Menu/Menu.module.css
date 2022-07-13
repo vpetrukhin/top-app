@@ -24,19 +24,12 @@
   border-left: 1px solid #DFDFDF;
 }
 .secondLevel {
-  margin-bottom: 10px;
   font-weight: 300;
   font-size: 12px;
   line-height: 16px;
   color: var(--grey-dark);
   text-transform: uppercase;
   cursor: pointer;
-}
-.secondLevelBlock { 
-  display: none;
-}
-.secondLevelBlockOpened { 
-  display: block;
 }
 .thirdLevel {
   display: block;
@@ -45,6 +38,9 @@
   font-size: 14px;
   line-height: 19px;
   color: var(--grey-dark);
+}
+.thirdLevel {
+  overflow: hidden;
 }
 .thirdLevelActive,
 .thirdLevel:hover {
