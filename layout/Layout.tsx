@@ -6,6 +6,7 @@ import { Sidebar } from "./Sidebar/Sidebar";
 
 import styles from "./Layout.module.css";
 import { AppContextProvider, IAppContext } from "../context/menu.context";
+import {Up} from "../components";
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
@@ -14,6 +15,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <Sidebar className={styles.sidebar} />
       <div className={styles.body}>{children}</div>
       <Footer className={styles.footer} />
+        <Up />
     </div>
   );
 };

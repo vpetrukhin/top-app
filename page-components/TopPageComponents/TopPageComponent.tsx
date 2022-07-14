@@ -19,7 +19,6 @@ export const TopPageComponent = ({
     { products: sortedProducts, sort },
     dispatchSort,
   ] = useReducer(sortReduser, { products, sort: SortEnum.Rating });
-  const y = useScrollY();
 
   const setSort = (sort: SortEnum) => {
     dispatchSort({ type: sort });
