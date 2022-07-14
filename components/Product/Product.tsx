@@ -22,6 +22,17 @@ export const Product = motion(forwardRef(({
     const [isReviewOpen, setIsReviewOpen] = useState<boolean>(false);
     const reviewRef = useRef<HTMLDivElement>(null);
 
+    const variants = {
+        hidden: { opacity: 0, },
+        visible: {
+            opacity: 1,
+            transition: {
+                when: 'beforeChildren',
+                staggerChildren: 0.1
+            }
+        }
+    }
+
     const scrollToReview = () => {
       setIsReviewOpen(true);
       reviewRef.current?.scrollIntoView({
@@ -80,29 +91,33 @@ export const Product = motion(forwardRef(({
               <div className={styles.actions}>
                   <Button appearence='primary'>Узнать подробнее</Button>
                   <Button
-                      onClick={() => setIsReviewOpen(!isReviewOpen)}
+                      onClick={() => {
+                          setIsReviewOpen(!isReviewOpen)
+                      }}
                       appearence='ghost'
                       arrow={isReviewOpen ? 'down' : 'right'}
                       className={styles.reviewButton}
                   >Читать отзывы</Button>
               </div>
           </Card>
-          <Card
-              className={cn(styles.reviews, {
-                  [styles.opened]: isReviewOpen,
-                  [styles.closed]: !isReviewOpen,
-              })}
-              color='blue'
-              ref={reviewRef}
-          >
-              {product.reviews.map(review => (
-                  <div key={review._id}>
-                      <Review review={review} />
-                      <Divider />
-                  </div>
-              ))}
-              <ReviewForm productId={product._id} />
-          </Card>
+          <motion.div layout variants={variants} initial={'hidden'} animate={isReviewOpen ? 'visible' : 'hidden'}>
+              <Card
+                  className={cn(styles.reviews, {
+                      [styles.opened]: isReviewOpen,
+                      [styles.closed]: !isReviewOpen,
+                  })}
+                  color='blue'
+                  ref={reviewRef}
+              >
+                  {product.reviews.map(review => (
+                      <div key={review._id}>
+                          <Review review={review} />
+                          <Divider />
+                      </div>
+                  ))}
+                  <ReviewForm productId={product._id} />
+              </Card>
+          </motion.div>
       </div>
   );
 }));

@@ -148,10 +148,13 @@
 	border-bottom: 1px dashed var(--gray-light);
 }
 
+.reviews {
+
+}
+
 .closed {
   max-height: 0;
   overflow: hidden;
-  padding: 0;
 }
 
 .opened {
